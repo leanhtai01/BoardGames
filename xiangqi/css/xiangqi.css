@@ -1,0 +1,14 @@
+.board {
+    background-image: url(../data/board.svg);
+    background-size: 630px 700px;
+    width: 630px;
+    height: 700px;
+    margin: auto;
+}
+
+.square {
+    width: 64px;
+    height: 64px;
+    float: left;
+    margin: 3px;
+}
