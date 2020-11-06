@@ -1,0 +1,34 @@
+.board {
+    height: 640px;
+    width: 640px;
+    margin: auto;
+    border-style: solid;
+    border-color: black;
+}
+
+.square {
+    height: 80px;
+    width: 80px;
+    float: left;
+}
+
+.square.lightSquare {
+    background-color: white;
+}
+
+.square.blackSquare {
+    background-color: grey;
+}
+
+.piece.selected {
+    background-color: yellow;
+}
+
+.piece.moved {
+    background-color: green;
+}
+
+img {
+    height: 80px;
+    width: 80px;
+}
