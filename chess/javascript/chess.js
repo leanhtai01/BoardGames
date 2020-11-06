@@ -52,8 +52,20 @@ for (let square of squares) {
     square.addEventListener("drop", function(e) {
         e.preventDefault();
 
-        if (/^square*/.test(e.target.className)) {
+        if (/^square*/.test(e.target.className)) { // drop into empty square
             e.target.appendChild(draggedPiece);
+        }
+        else { // attack other piece
+            let attackPlayer = draggedPiece.getAttribute("player");
+            let attackedPlayer = e.target.getAttribute("player");
+
+            if (attackPlayer !== attackedPlayer) {
+                let attackedSquareId = e.target.parentElement.id;
+                let attackedSquare = document.getElementById(attackedSquareId);
+
+                attackedSquare.removeChild(attackedSquare.firstChild);
+                attackedSquare.appendChild(draggedPiece);
+            }
         }
     }, false);
 }
