@@ -12,3 +12,7 @@
     float: left;
     margin: 3px;
 }
+
+.piece.selected {
+    background-color: yellow;
+}
