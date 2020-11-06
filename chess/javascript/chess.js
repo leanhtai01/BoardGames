@@ -11,20 +11,29 @@ for (let piece of pieces) {
 
         if (currSelectedPiece !== prevSelectedPiece) {
             if (prevSelectedPiece !== null) {
-                // let prevSquareId = prevSelectedPiece.parentElement.id;
-                // let currSquareId = currSelectedPiece.parentElement.id;
-                // let prevSquare = document.getElementById(prevSquareId);
-                // let currSquare = document.getElementById(currSquareId);
+                let attackPlayer = prevSelectedPiece.getAttribute("player");
+                let attackedPlayer = currSelectedPiece.getAttribute("player");
+
+                if (attackPlayer !== attackedPlayer) {
+                    let attackedSquareId = currSelectedPiece.parentElement.id;
+                    let attackedSquare = document.getElementById(attackedSquareId);
+
+                    attackedSquare.removeChild(attackedSquare.firstChild);
+                    attackedSquare.appendChild(prevSelectedPiece);
+                }
 
                 prevSelectedPiece.classList.remove("selected");
-                // currSquare.removeChild(currSquare.firstChild);
-                // currSquare.appendChild(prevSelectedPiece);
-                // currSelectedPiece = currSquare.firstChild;
+                prevSelectedPiece = null;
+            }
+            else {
+                prevSelectedPiece = currSelectedPiece;
+                currSelectedPiece.classList.toggle("selected");
             }
         }
-
-        currSelectedPiece.classList.toggle("selected");
-        prevSelectedPiece = currSelectedPiece;
+        else {
+            prevSelectedPiece = null;
+            currSelectedPiece.classList.toggle("selected");
+        }
     }, false);
 
     piece.addEventListener("dragstart", function(e) {
