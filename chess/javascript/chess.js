@@ -1,4 +1,5 @@
 let pieces = document.querySelectorAll(".piece");
+let squares = document.querySelectorAll(".square");
 let prevSelectedPiece = null;
 
 function markSelected(e) {
@@ -22,7 +23,21 @@ function markSelected(e) {
     prevSelectedPiece = currSelectedPiece;
 }
 
+function movePieceToEmptySquare(e) {
+    let currSquareId = e.target.id;
+    let currSquare = document.getElementById(currSquareId);
+
+    currSquare.appendChild(prevSelectedPiece);
+    prevSelectedPiece.classList.remove("selected");
+    prevSelectedPiece = null;
+}
+
 // binding events to pieces
 for (let piece of pieces) {
     piece.addEventListener("click", markSelected, false);
+}
+
+// binding events to squares
+for (let square of squares) {
+    square.addEventListener("click", movePieceToEmptySquare, false);
 }
