@@ -21,8 +21,10 @@ for (let piece of pieces) {
                     let attackedSquareId = currSelectedPiece.parentElement.id;
                     let attackedSquare = document.getElementById(attackedSquareId);
 
-                    attackedSquare.removeChild(attackedSquare.firstChild);
-                    attackedSquare.appendChild(prevSelectedPiece);
+                    if (validMoves.indexOf(attackedSquare.id) != -1) {
+                        attackedSquare.removeChild(attackedSquare.firstChild);
+                        attackedSquare.appendChild(prevSelectedPiece);
+                    }
                 }
 
                 prevSelectedPiece.classList.remove("selected");
