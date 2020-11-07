@@ -931,11 +931,11 @@ function genValidMovesCannon(currSelectedSquareRow, currSelectedSquareCol) {
                 tmp2--;
 
                 // determine what player occupied next square (if any)
-                let nextPlayer = getPlayer(getSquare(currSelectedSquareCol, tmp2));
+                let nextPlayer = getPlayer(getSquare(currSelectedSquareRow, tmp2));
 
                 if (nextPlayer != null) {
                     if (currPlayer != nextPlayer) {
-                        validMoves.push(currSelectedSquareCol.toString() + tmp2.toString());
+                        validMoves.push(currSelectedSquareRow.toString() + tmp2.toString());
                     }
 
                     tmp2 = 0;
@@ -964,11 +964,11 @@ function genValidMovesCannon(currSelectedSquareRow, currSelectedSquareCol) {
                 tmp2++;
 
                 // determine what player occupied next square (if any)
-                let nextPlayer = getPlayer(getSquare(currSelectedSquareCol, tmp2));
+                let nextPlayer = getPlayer(getSquare(currSelectedSquareRow, tmp2));
 
                 if (nextPlayer != null) {
                     if (currPlayer != nextPlayer) {
-                        validMoves.push(currSelectedSquareCol.toString() + tmp2.toString());
+                        validMoves.push(currSelectedSquareRow.toString() + tmp2.toString());
                     }
 
                     tmp2 = MAXCOL;
@@ -976,6 +976,81 @@ function genValidMovesCannon(currSelectedSquareRow, currSelectedSquareCol) {
             }
 
             tmp = MAXCOL; // get out of while loop
+        }
+    }
+
+    return validMoves;
+}
+
+// function generate valid move for Sodier
+function genValidMovesSodier(currSelectedSquareRow, currSelectedSquareCol)
+{
+    let validMoves = [];
+
+    // determine current square
+    let currSquare = getSquare(currSelectedSquareRow, currSelectedSquareCol);
+    
+    // determine the player current piece belong to
+    let currPlayer = getPlayer(currSquare);
+
+    if (currPlayer === "red") {
+        // add valid move to up of the screen
+        let tmp = currSelectedSquareRow;
+
+        if ((tmp - 1) >= 0) {
+            tmp--;
+
+            // determine what player occupied next square (if any)
+            let nextPlayer = getPlayer(getSquare(tmp, currSelectedSquareCol));
+
+            if (nextPlayer == null) { // next square empty
+                validMoves.push(tmp.toString() + currSelectedSquareCol.toString());
+            }
+            else {
+                if (currPlayer != nextPlayer) {
+                    validMoves.push(tmp.toString() + currSelectedSquareCol.toString());
+                }
+            }
+        }
+
+        if (currSelectedSquareRow <= 4) {
+            // add valid move to left of the screen
+            tmp = currSelectedSquareCol;
+
+            if ((tmp - 1) >= 0) {
+                tmp--;
+
+                // determine what player occupied next square (if any)
+                nextPlayer = getPlayer(getSquare(currSelectedSquareRow, tmp));
+
+                if (nextPlayer == null) { // next square empty
+                    validMoves.push(currSelectedSquareRow.toString() + tmp.toString());
+                }
+                else {
+                    if (currPlayer != nextPlayer) {
+                        validMoves.push(currSelectedSquareRow.toString() + tmp.toString());
+                    }
+                }
+            }
+
+            // add valid move to right of the screen
+            tmp = currSelectedSquareCol;
+
+            if ((tmp + 1) <= MAXCOL) {
+                tmp++;
+
+                // determine what player occupied next square (if any)
+                nextPlayer = getPlayer(getSquare(currSelectedSquareRow, tmp));
+
+                if (nextPlayer == null) { // next square empty
+                    validMoves.push(currSelectedSquareRow.toString() + tmp.toString());
+                }
+                else {
+                    if (currPlayer != nextPlayer) {
+                        validMoves.push(currSelectedSquareRow.toString() + tmp.toString());
+                    }
+                }
+            }
         }
     }
 
