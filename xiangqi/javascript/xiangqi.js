@@ -1152,7 +1152,7 @@ for (let square of squares) {
         let currSquareId = e.target.id;
         let currSquare = document.getElementById(currSquareId);
 
-        if (currSquare !== null && prevSelectedPiece !== null) {
+        if (currSquare !== null && prevSelectedPiece !== null && validMoves.indexOf(currSquareId) != -1) {
             currSquare.appendChild(prevSelectedPiece);
             if (prevSelectedPiece.classList.contains("selected")) {
                 prevSelectedPiece.classList.remove("selected");
