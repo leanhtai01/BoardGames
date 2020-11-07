@@ -84,6 +84,9 @@ function genValidMoves(currSelectedPieceName, currSelectedSquareRow, currSelecte
         case "mandarin":
             validMoves = genValidMovesMandarin(currSelectedSquareRow, currSelectedSquareCol);
             break;
+        case "general":
+            validMoves = genValidMovesGeneral(currSelectedSquareRow, currSelectedSquareCol);
+            break;
         case "cannon":
             validMoves = genValidMovesCannon(currSelectedSquareRow, currSelectedSquareCol);
             break;
@@ -637,6 +640,103 @@ function genValidMovesMandarin(currSelectedSquareRow, currSelectedSquareCol) {
             tmpRow--;
             tmpCol++;
     
+            // check what player occupied destination square
+            let destPlayer = getPlayer(getSquare(tmpRow, tmpCol));
+    
+            if (destPlayer == null) { // destination square empty
+                validMoves.push(tmpRow.toString() + tmpCol.toString());
+            }
+            else {
+                if (currPlayer != destPlayer) {
+                    validMoves.push(tmpRow.toString() + tmpCol.toString());
+                }
+            }
+        }
+    }
+
+    return validMoves;
+}
+
+// function generate valid move for General
+function genValidMovesGeneral(currSelectedSquareRow, currSelectedSquareCol) {
+    let validMoves = [];
+
+    // determine current square
+    let currSquare = getSquare(currSelectedSquareRow, currSelectedSquareCol);
+    
+    // determine the player current piece belong to
+    let currPlayer = getPlayer(currSquare);
+
+    if (currSelectedSquareRow <= 2) {
+        const MINROWPALACE = 0;
+        const MINCOLPALACE = 3;
+        const MAXROWPALACE = 2;
+        const MAXCOLPALACE = 5;
+
+        // add valid moves to down of the screen
+        let tmpRow = currSelectedSquareRow;
+        let tmpCol = currSelectedSquareCol;
+
+        if ((tmpRow + 1) <= MAXROWPALACE) {
+            tmpRow++;
+
+            // check what player occupied destination square
+            let destPlayer = getPlayer(getSquare(tmpRow, tmpCol));
+    
+            if (destPlayer == null) { // destination square empty
+                validMoves.push(tmpRow.toString() + tmpCol.toString());
+            }
+            else {
+                if (currPlayer != destPlayer) {
+                    validMoves.push(tmpRow.toString() + tmpCol.toString());
+                }
+            }
+        }
+
+        // add valid moves to up of the screen
+        tmpRow = currSelectedSquareRow;
+        tmpCol = currSelectedSquareCol;
+        if ((tmpRow - 1) >= MINROWPALACE) {
+            tmpRow--;
+
+            // check what player occupied destination square
+            let destPlayer = getPlayer(getSquare(tmpRow, tmpCol));
+    
+            if (destPlayer == null) { // destination square empty
+                validMoves.push(tmpRow.toString() + tmpCol.toString());
+            }
+            else {
+                if (currPlayer != destPlayer) {
+                    validMoves.push(tmpRow.toString() + tmpCol.toString());
+                }
+            }
+        }
+
+        // add valid moves to left of the screen
+        tmpRow = currSelectedSquareRow;
+        tmpCol = currSelectedSquareCol;
+        if ((tmpCol - 1) >= MINCOLPALACE) {
+            tmpCol--;
+
+            // check what player occupied destination square
+            let destPlayer = getPlayer(getSquare(tmpRow, tmpCol));
+    
+            if (destPlayer == null) { // destination square empty
+                validMoves.push(tmpRow.toString() + tmpCol.toString());
+            }
+            else {
+                if (currPlayer != destPlayer) {
+                    validMoves.push(tmpRow.toString() + tmpCol.toString());
+                }
+            }
+        }
+
+        // add valid moves to right of the screen
+        tmpRow = currSelectedSquareRow;
+        tmpCol = currSelectedSquareCol;
+        if ((tmpCol + 1) >= MINCOLPALACE) {
+            tmpCol++;
+
             // check what player occupied destination square
             let destPlayer = getPlayer(getSquare(tmpRow, tmpCol));
     
