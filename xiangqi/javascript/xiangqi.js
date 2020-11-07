@@ -1065,6 +1065,66 @@ function genValidMovesSodier(currSelectedSquareRow, currSelectedSquareCol)
             }
         }
     }
+    else {
+        // add valid move to up of the screen
+        let tmp = currSelectedSquareRow;
+
+        if ((tmp + 1) <= MAXROW) {
+            tmp++;
+
+            // determine what player occupied next square (if any)
+            let nextPlayer = getPlayer(getSquare(tmp, currSelectedSquareCol));
+
+            if (nextPlayer == null) { // next square empty
+                validMoves.push(tmp.toString() + currSelectedSquareCol.toString());
+            }
+            else {
+                if (currPlayer != nextPlayer) {
+                    validMoves.push(tmp.toString() + currSelectedSquareCol.toString());
+                }
+            }
+        }
+
+        if (currSelectedSquareRow > 4) {
+            // add valid move to left of the screen
+            tmp = currSelectedSquareCol;
+
+            if ((tmp - 1) >= 0) {
+                tmp--;
+
+                // determine what player occupied next square (if any)
+                nextPlayer = getPlayer(getSquare(currSelectedSquareRow, tmp));
+
+                if (nextPlayer == null) { // next square empty
+                    validMoves.push(currSelectedSquareRow.toString() + tmp.toString());
+                }
+                else {
+                    if (currPlayer != nextPlayer) {
+                        validMoves.push(currSelectedSquareRow.toString() + tmp.toString());
+                    }
+                }
+            }
+
+            // add valid move to right of the screen
+            tmp = currSelectedSquareCol;
+
+            if ((tmp + 1) <= MAXCOL) {
+                tmp++;
+
+                // determine what player occupied next square (if any)
+                nextPlayer = getPlayer(getSquare(currSelectedSquareRow, tmp));
+
+                if (nextPlayer == null) { // next square empty
+                    validMoves.push(currSelectedSquareRow.toString() + tmp.toString());
+                }
+                else {
+                    if (currPlayer != nextPlayer) {
+                        validMoves.push(currSelectedSquareRow.toString() + tmp.toString());
+                    }
+                }
+            }
+        }
+    }
 
     return validMoves;
 }
