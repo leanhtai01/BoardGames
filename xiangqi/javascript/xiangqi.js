@@ -472,6 +472,188 @@ function genValidMovesElephant(currSelectedSquareRow, currSelectedSquareCol) {
     return validMoves;
 }
 
+// function generate valid move for Mandarin
+function genValidMovesMandarin(currSelectedSquareRow, currSelectedSquareCol) {
+    let validMoves = [];
+
+    // determine current square
+    let currSquare = getSquare(currSelectedSquareRow, currSelectedSquareCol);
+    
+    // determine the player current piece belong to
+    let currPlayer = getPlayer(currSquare);
+
+    if (currSelectedSquareRow <= 2) {
+        const MINROWPALACE = 0;
+        const MINCOLPALACE = 3;
+        const MAXROWPALACE = 2;
+        const MAXCOLPALACE = 5;
+
+        // add valid moves to down of the screen
+        let tmpRow = currSelectedSquareRow;
+        let tmpCol = currSelectedSquareCol;
+        if ((tmpRow + 1) <= MAXROWPALACE && (tmpCol - 1) >= MINCOLPALACE) { // 1st down position
+            tmpRow++;
+            tmpCol--;
+    
+            // check what player occupied destination square
+            let destPlayer = getPlayer(getSquare(tmpRow, tmpCol));
+    
+            if (destPlayer == null) { // destination square empty
+                validMoves.push(tmpRow.toString() + tmpCol.toString());
+            }
+            else {
+                if (currPlayer != destPlayer) {
+                    validMoves.push(tmpRow.toString() + tmpCol.toString());
+                }
+            }
+        }
+
+        tmpRow = currSelectedSquareRow;
+        tmpCol = currSelectedSquareCol;
+        if ((tmpRow + 1) <= MAXROWPALACE && (tmpCol + 1) <= MAXCOLPALACE) { // 2nd down position
+            tmpRow++;
+            tmpCol++;
+    
+            // check what player occupied destination square
+            let destPlayer = getPlayer(getSquare(tmpRow, tmpCol));
+    
+            if (destPlayer == null) { // destination square empty
+                validMoves.push(tmpRow.toString() + tmpCol.toString());
+            }
+            else {
+                if (currPlayer != destPlayer) {
+                    validMoves.push(tmpRow.toString() + tmpCol.toString());
+                }
+            }
+        }
+
+        // add valid moves to up of the screen
+        tmpRow = currSelectedSquareRow;
+        tmpCol = currSelectedSquareCol;
+        if ((tmpRow - 1) >= MINROWPALACE && (tmpCol - 1) >= MINCOLPALACE) { // 1st up position
+            tmpRow--;
+            tmpCol--;
+    
+            // check what player occupied destination square
+            let destPlayer = getPlayer(getSquare(tmpRow, tmpCol));
+    
+            if (destPlayer == null) { // destination square empty
+                validMoves.push(tmpRow.toString() + tmpCol.toString());
+            }
+            else {
+                if (currPlayer != destPlayer) {
+                    validMoves.push(tmpRow.toString() + tmpCol.toString());
+                }
+            }
+        }
+
+        tmpRow = currSelectedSquareRow;
+        tmpCol = currSelectedSquareCol;
+        if ((tmpRow - 1) >= MINROWPALACE && (tmpCol + 1) <= MAXCOLPALACE) { // 2nd up position
+            tmpRow--;
+            tmpCol++;
+    
+            // check what player occupied destination square
+            let destPlayer = getPlayer(getSquare(tmpRow, tmpCol));
+    
+            if (destPlayer == null) { // destination square empty
+                validMoves.push(tmpRow.toString() + tmpCol.toString());
+            }
+            else {
+                if (currPlayer != destPlayer) {
+                    validMoves.push(tmpRow.toString() + tmpCol.toString());
+                }
+            }
+        }
+    }
+    else {
+        const MINROWPALACE = 7;
+        const MINCOLPALACE = 3;
+        const MAXROWPALACE = 9;
+        const MAXCOLPALACE = 5;
+
+        // add valid moves to down of the screen
+        let tmpRow = currSelectedSquareRow;
+        let tmpCol = currSelectedSquareCol;
+        if ((tmpRow + 1) <= MAXROWPALACE && (tmpCol - 1) >= MINCOLPALACE) { // 1st down position
+            tmpRow++;
+            tmpCol--;
+    
+            // check what player occupied destination square
+            let destPlayer = getPlayer(getSquare(tmpRow, tmpCol));
+    
+            if (destPlayer == null) { // destination square empty
+                validMoves.push(tmpRow.toString() + tmpCol.toString());
+            }
+            else {
+                if (currPlayer != destPlayer) {
+                    validMoves.push(tmpRow.toString() + tmpCol.toString());
+                }
+            }
+        }
+
+        tmpRow = currSelectedSquareRow;
+        tmpCol = currSelectedSquareCol;
+        if ((tmpRow + 1) <= MAXROWPALACE && (tmpCol + 1) <= MAXCOLPALACE) { // 2nd down position
+            tmpRow++;
+            tmpCol++;
+    
+            // check what player occupied destination square
+            let destPlayer = getPlayer(getSquare(tmpRow, tmpCol));
+    
+            if (destPlayer == null) { // destination square empty
+                validMoves.push(tmpRow.toString() + tmpCol.toString());
+            }
+            else {
+                if (currPlayer != destPlayer) {
+                    validMoves.push(tmpRow.toString() + tmpCol.toString());
+                }
+            }
+        }
+
+        // add valid moves to up of the screen
+        tmpRow = currSelectedSquareRow;
+        tmpCol = currSelectedSquareCol;
+        if ((tmpRow - 1) >= MINROWPALACE && (tmpCol - 1) >= MINCOLPALACE) { // 1st up position
+            tmpRow--;
+            tmpCol--;
+    
+            // check what player occupied destination square
+            let destPlayer = getPlayer(getSquare(tmpRow, tmpCol));
+    
+            if (destPlayer == null) { // destination square empty
+                validMoves.push(tmpRow.toString() + tmpCol.toString());
+            }
+            else {
+                if (currPlayer != destPlayer) {
+                    validMoves.push(tmpRow.toString() + tmpCol.toString());
+                }
+            }
+        }
+
+        tmpRow = currSelectedSquareRow;
+        tmpCol = currSelectedSquareCol;
+        if ((tmpRow - 1) >= MINROWPALACE && (tmpCol + 1) <= MAXCOLPALACE) { // 2nd up position
+            tmpRow--;
+            tmpCol++;
+    
+            // check what player occupied destination square
+            let destPlayer = getPlayer(getSquare(tmpRow, tmpCol));
+    
+            if (destPlayer == null) { // destination square empty
+                validMoves.push(tmpRow.toString() + tmpCol.toString());
+            }
+            else {
+                if (currPlayer != destPlayer) {
+                    validMoves.push(tmpRow.toString() + tmpCol.toString());
+                }
+            }
+        }
+    }
+
+    return validMoves;
+}
+
 // determine the player current piece belong to give square
 function getPlayer(currSquare) {
     let piece = currSquare.firstChild;
