@@ -734,7 +734,7 @@ function genValidMovesGeneral(currSelectedSquareRow, currSelectedSquareCol) {
         // add valid moves to right of the screen
         tmpRow = currSelectedSquareRow;
         tmpCol = currSelectedSquareCol;
-        if ((tmpCol + 1) >= MINCOLPALACE) {
+        if ((tmpCol + 1) <= MAXCOLPALACE) {
             tmpCol++;
 
             // check what player occupied destination square
@@ -748,6 +748,234 @@ function genValidMovesGeneral(currSelectedSquareRow, currSelectedSquareCol) {
                     validMoves.push(tmpRow.toString() + tmpCol.toString());
                 }
             }
+        }
+    }
+    else {
+        const MINROWPALACE = 7;
+        const MINCOLPALACE = 3;
+        const MAXROWPALACE = 9;
+        const MAXCOLPALACE = 5;
+
+        // add valid moves to down of the screen
+        let tmpRow = currSelectedSquareRow;
+        let tmpCol = currSelectedSquareCol;
+
+        if ((tmpRow + 1) <= MAXROWPALACE) {
+            tmpRow++;
+
+            // check what player occupied destination square
+            let destPlayer = getPlayer(getSquare(tmpRow, tmpCol));
+    
+            if (destPlayer == null) { // destination square empty
+                validMoves.push(tmpRow.toString() + tmpCol.toString());
+            }
+            else {
+                if (currPlayer != destPlayer) {
+                    validMoves.push(tmpRow.toString() + tmpCol.toString());
+                }
+            }
+        }
+
+        // add valid moves to up of the screen
+        tmpRow = currSelectedSquareRow;
+        tmpCol = currSelectedSquareCol;
+        if ((tmpRow - 1) >= MINROWPALACE) {
+            tmpRow--;
+
+            // check what player occupied destination square
+            let destPlayer = getPlayer(getSquare(tmpRow, tmpCol));
+    
+            if (destPlayer == null) { // destination square empty
+                validMoves.push(tmpRow.toString() + tmpCol.toString());
+            }
+            else {
+                if (currPlayer != destPlayer) {
+                    validMoves.push(tmpRow.toString() + tmpCol.toString());
+                }
+            }
+        }
+
+        // add valid moves to left of the screen
+        tmpRow = currSelectedSquareRow;
+        tmpCol = currSelectedSquareCol;
+        if ((tmpCol - 1) >= MINCOLPALACE) {
+            tmpCol--;
+
+            // check what player occupied destination square
+            let destPlayer = getPlayer(getSquare(tmpRow, tmpCol));
+    
+            if (destPlayer == null) { // destination square empty
+                validMoves.push(tmpRow.toString() + tmpCol.toString());
+            }
+            else {
+                if (currPlayer != destPlayer) {
+                    validMoves.push(tmpRow.toString() + tmpCol.toString());
+                }
+            }
+        }
+
+        // add valid moves to right of the screen
+        tmpRow = currSelectedSquareRow;
+        tmpCol = currSelectedSquareCol;
+        if ((tmpCol + 1) <= MAXCOLPALACE) {
+            tmpCol++;
+
+            // check what player occupied destination square
+            let destPlayer = getPlayer(getSquare(tmpRow, tmpCol));
+    
+            if (destPlayer == null) { // destination square empty
+                validMoves.push(tmpRow.toString() + tmpCol.toString());
+            }
+            else {
+                if (currPlayer != destPlayer) {
+                    validMoves.push(tmpRow.toString() + tmpCol.toString());
+                }
+            }
+        }
+    }
+
+    return validMoves;
+}
+
+// function generate valid moves for Cannon
+function genValidMovesCannon(currSelectedSquareRow, currSelectedSquareCol) {
+    let validMoves = [];
+
+    // determine current square
+    let currSquare = getSquare(currSelectedSquareRow, currSelectedSquareCol);
+    
+    // determine the player current piece belong to
+    let currPlayer = getPlayer(currSquare);
+
+    // add valid moves to down of the screen
+    let tmp = currSelectedSquareRow;
+    while ((tmp + 1) <= MAXROW) {
+        tmp++;
+
+        // determine what player occupied next square (if any)
+        let nextPlayer = getPlayer(getSquare(tmp, currSelectedSquareCol));
+
+        if (nextPlayer == null) { // next square empty
+            validMoves.push(tmp.toString() + currSelectedSquareCol.toString());
+        }
+        else {
+            let tmp2 = tmp;
+
+            while ((tmp2 + 1) <= MAXROW) {
+                tmp2++;
+
+                // determine what player occupied next square (if any)
+                let nextPlayer = getPlayer(getSquare(tmp2, currSelectedSquareCol));
+
+                if (nextPlayer != null) {
+                    if (currPlayer != nextPlayer) {
+                        validMoves.push(tmp2.toString() + currSelectedSquareCol.toString());
+                    }
+
+                    tmp2 = MAXROW;
+                }
+            }
+
+            tmp = MAXROW; // get out of while loop
+        }
+    }
+
+    // add valid moves to up of the screen
+    tmp = currSelectedSquareRow;
+    while ((tmp - 1) >= 0) {
+        tmp--;
+
+        // determine what player occupied next square (if any)
+        let nextPlayer = getPlayer(getSquare(tmp, currSelectedSquareCol));
+
+        if (nextPlayer == null) { // next square empty
+            validMoves.push(tmp.toString() + currSelectedSquareCol.toString());
+        }
+        else {
+            let tmp2 = tmp;
+
+            while ((tmp2 - 1) >= 0) {
+                tmp2--;
+
+                // determine what player occupied next square (if any)
+                let nextPlayer = getPlayer(getSquare(tmp2, currSelectedSquareCol));
+
+                if (nextPlayer != null) {
+                    if (currPlayer != nextPlayer) {
+                        validMoves.push(tmp2.toString() + currSelectedSquareCol.toString());
+                    }
+
+                    tmp2 = 0;
+                }
+            }
+
+            tmp = 0; // get out of while loop
+        }
+    }
+
+    // add valid moves to left of the screen
+    tmp = currSelectedSquareCol;
+    while ((tmp - 1) >= 0) {
+        tmp--;
+
+        // determine what player occupied next square (if any)
+        let nextPlayer = getPlayer(getSquare(currSelectedSquareRow, tmp));
+
+        if (nextPlayer == null) { // next square empty
+            validMoves.push(currSelectedSquareRow.toString() + tmp.toString());
+        }
+        else {
+            let tmp2 = tmp;
+
+            while ((tmp2 - 1) >= 0) {
+                tmp2--;
+
+                // determine what player occupied next square (if any)
+                let nextPlayer = getPlayer(getSquare(currSelectedSquareCol, tmp2));
+
+                if (nextPlayer != null) {
+                    if (currPlayer != nextPlayer) {
+                        validMoves.push(currSelectedSquareCol.toString() + tmp2.toString());
+                    }
+
+                    tmp2 = 0;
+                }
+            }
+
+            tmp = 0; // get out of while loop
+        }
+    }
+
+    // add valid moves to right of the screen
+    tmp = currSelectedSquareCol;
+    while ((tmp + 1) <= MAXCOL) {
+        tmp++;
+
+        // determine what player occupied next square (if any)
+        let nextPlayer = getPlayer(getSquare(currSelectedSquareRow, tmp));
+
+        if (nextPlayer == null) { // next square empty
+            validMoves.push(currSelectedSquareRow.toString() + tmp.toString());
+        }
+        else {
+            let tmp2 = tmp;
+
+            while ((tmp2 + 1) <= MAXCOL) {
+                tmp2++;
+
+                // determine what player occupied next square (if any)
+                let nextPlayer = getPlayer(getSquare(currSelectedSquareCol, tmp2));
+
+                if (nextPlayer != null) {
+                    if (currPlayer != nextPlayer) {
+                        validMoves.push(currSelectedSquareCol.toString() + tmp2.toString());
+                    }
+
+                    tmp2 = MAXCOL;
+                }
+            }
+
+            tmp = MAXCOL; // get out of while loop
         }
     }
 
