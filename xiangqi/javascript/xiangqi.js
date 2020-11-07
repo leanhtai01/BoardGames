@@ -55,14 +55,14 @@ function displayValidMoves(currSelectedPiece) {
     let currSquare = document.getElementById(currSquareId);
 
     // determine current row and column of square
-    let currSelectedSquareRow = currSquare.getAttribute("row");
-    let currSelectedSquareCol = currSquare.getAttribute("column");
+    let currSelectedSquareRow = parseInt(currSquare.getAttribute("row"));
+    let currSelectedSquareCol = parseInt(currSquare.getAttribute("column"));
 
     // generate valid moves
     validMoves = genValidMoves(currSelectedPieceName, currSelectedSquareRow, currSelectedSquareCol);
 
     // display valid moves
-    for (let move in validMoves) {
+    for (let move of validMoves) {
         document.getElementById(move).classList.add("validMove");
     }
 }
@@ -181,7 +181,7 @@ function genValidMovesChariot(currSelectedSquareRow, currSelectedSquareCol) {
                 validMoves.push(currSelectedSquareRow.toString() + tmp.toString());
             }
 
-            tmp = 0; // get out of while loop
+            tmp = MAXCOL; // get out of while loop
         }
     }
 
