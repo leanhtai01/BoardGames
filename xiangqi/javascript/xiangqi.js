@@ -49,7 +49,9 @@ for (let square of squares) {
 
         if (currSquare !== null && prevSelectedPiece !== null) {
             currSquare.appendChild(prevSelectedPiece);
-            prevSelectedPiece.classList.remove("selected");
+            if (prevSelectedPiece.classList.contains("selected")) {
+                prevSelectedPiece.classList.remove("selected");
+            }
             prevSelectedPiece = null;
         }
     }, false);
@@ -76,5 +78,10 @@ for (let square of squares) {
                 attackedSquare.appendChild(draggedPiece);
             }
         }
+
+        if (prevSelectedPiece != null && prevSelectedPiece.classList.contains("selected")) {
+            prevSelectedPiece.classList.remove("selected");
+        }
+        prevSelectedPiece = null;
     }, false);
 }
