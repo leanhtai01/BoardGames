@@ -884,7 +884,7 @@ function genValidMovesPawn(currSelectedSquareRow, currSelectedSquareCol)
         tmpRow = currSelectedSquareRow;
         tmpCol = currSelectedSquareCol;
         
-        if ((tmpRow - 1) >= MINROW && (tmpCol + 1) >= MINCOL) {
+        if ((tmpRow - 1) >= MINROW && (tmpCol + 1) <= MAXCOL) {
             tmpRow--;
             tmpCol++;
 
@@ -946,7 +946,7 @@ function genValidMovesPawn(currSelectedSquareRow, currSelectedSquareCol)
         tmpRow = currSelectedSquareRow;
         tmpCol = currSelectedSquareCol;
         
-        if ((tmpRow + 1) >= MINROW && (tmpCol + 1) >= MINCOL) {
+        if ((tmpRow + 1) <= MAXROW && (tmpCol + 1) <= MAXCOL) {
             tmpRow++;
             tmpCol++;
 
