@@ -14,9 +14,9 @@
 }
 
 .square.validMove {
-    background-color: green;
+    background-image: url(../data/valid64.svg);
 }
 
 .piece.selected {
-    background-color: yellow;
+    background-image: url(../data/selected64.svg);
 }
