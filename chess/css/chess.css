@@ -20,6 +20,10 @@
     background-color: grey;
 }
 
+.square.validMove {
+    background-color: green;
+}
+
 .piece.selected {
     background-color: yellow;
 }
