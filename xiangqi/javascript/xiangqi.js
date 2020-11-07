@@ -27,6 +27,7 @@ for (let piece of pieces) {
 
                 prevSelectedPiece.classList.remove("selected");
                 prevSelectedPiece = null;
+                removeValidMoveMark();
             }
             else {
                 displayValidMoves(currSelectedPiece);
@@ -37,12 +38,23 @@ for (let piece of pieces) {
         else {
             prevSelectedPiece = null;
             currSelectedPiece.classList.toggle("selected");
+            removeValidMoveMark();
         }
     }, false);
 
     piece.addEventListener("dragstart", function(e) {
         draggedPiece = e.target;
     }, false);
+}
+
+// function remove validMove mark from squares
+function removeValidMoveMark()
+{
+    for (let square of squares) {
+        if (square.classList.contains("validMove")) {
+            square.classList.remove("validMove");
+        }
+    }
 }
 
 // function display valid moves
@@ -1083,7 +1095,9 @@ for (let square of squares) {
             if (prevSelectedPiece.classList.contains("selected")) {
                 prevSelectedPiece.classList.remove("selected");
             }
+
             prevSelectedPiece = null;
+            removeValidMoveMark();
         }
     }, false);
 
