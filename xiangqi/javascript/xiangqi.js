@@ -46,7 +46,12 @@ for (let piece of pieces) {
 
     piece.addEventListener("dragstart", function(e) {
         draggedPiece = e.target;
+        displayValidMoves(draggedPiece);
     }, false);
+
+    // piece.addEventListener("dragend", function(e) {
+    //     removeValidMoveMark();
+    // }, false);
 }
 
 // function remove validMove mark from squares
@@ -1170,7 +1175,7 @@ for (let square of squares) {
     square.addEventListener("drop", function(e) {
         e.preventDefault();
 
-        if (/^square*/.test(e.target.className)) { // drop into empty square
+        if (/^square*/.test(e.target.className) && (validMoves.indexOf(e.target.id) != -1)) { // drop into empty square
             e.target.appendChild(draggedPiece);
         }
         else { // attack other piece
@@ -1181,8 +1186,10 @@ for (let square of squares) {
                 let attackedSquareId = e.target.parentElement.id;
                 let attackedSquare = document.getElementById(attackedSquareId);
 
-                attackedSquare.removeChild(attackedSquare.firstChild);
-                attackedSquare.appendChild(draggedPiece);
+                if (attackedSquare != null && validMoves.indexOf(attackedSquare.id) != -1) {
+                    attackedSquare.removeChild(attackedSquare.firstChild);
+                    attackedSquare.appendChild(draggedPiece);
+                }
             }
         }
 
@@ -1190,5 +1197,6 @@ for (let square of squares) {
             prevSelectedPiece.classList.remove("selected");
         }
         prevSelectedPiece = null;
+        removeValidMoveMark();
     }, false);
 }
