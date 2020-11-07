@@ -76,19 +76,19 @@ function genValidMoves(currSelectedPieceName, currSelectedSquareRow, currSelecte
             validMoves = genValidMovesChariot(currSelectedSquareRow, currSelectedSquareCol);
             break;
         case "horse":
-            validMoves = getValidMovesHorse(currSelectedSquareRow, currSelectedSquareCol);
+            validMoves = genValidMovesHorse(currSelectedSquareRow, currSelectedSquareCol);
             break;
         case "elephant":
-            validMoves = getValidMovesElephant(currSelectedSquareRow, currSelectedSquareCol);
+            validMoves = genValidMovesElephant(currSelectedSquareRow, currSelectedSquareCol);
             break;
         case "mandarin":
-            validMoves = getValidMovesMandarin(currSelectedSquareRow, currSelectedSquareCol);
+            validMoves = genValidMovesMandarin(currSelectedSquareRow, currSelectedSquareCol);
             break;
         case "cannon":
-            validMoves = getValidMovesCannon(currSelectedSquareRow, currSelectedSquareCol);
+            validMoves = genValidMovesCannon(currSelectedSquareRow, currSelectedSquareCol);
             break;
         case "sodier":
-            validMoves = getValidMovesSodier(currSelectedSquareRow, currSelectedSquareCol);
+            validMoves = genValidMovesSodier(currSelectedSquareRow, currSelectedSquareCol);
             break;
     }
 
@@ -182,6 +182,191 @@ function genValidMovesChariot(currSelectedSquareRow, currSelectedSquareCol) {
             }
 
             tmp = MAXCOL; // get out of while loop
+        }
+    }
+
+    return validMoves;
+}
+
+function genValidMovesHorse(currSelectedSquareRow, currSelectedSquareCol) {
+    let validMoves = [];
+
+    // determine current square
+    let currSquare = getSquare(currSelectedSquareRow, currSelectedSquareCol);
+    
+    // determine the player current piece belong to
+    let currPlayer = getPlayer(currSquare);
+
+    // add valid moves to down of the screen
+    let tmpRow = currSelectedSquareRow;
+    let tmpCol = currSelectedSquareCol;
+
+    if ((tmpRow + 2) <= MAXROW && (tmpCol - 1) >= 0) { // 1st down position
+        if (getSquare(tmpRow + 1, tmpCol).firstChild == null) { // check whether any piece prevent horse from move
+            tmpRow += 2;
+            tmpCol--;
+
+            // check what player occupied destination square
+            let destPlayer = getPlayer(getSquare(tmpRow, tmpCol));
+
+            if (destPlayer == null) { // destination square empty
+                validMoves.push(tmpRow.toString() + tmpCol.toString());
+            }
+            else {
+                if (currPlayer != destPlayer) {
+                    validMoves.push(tmpRow.toString() + tmpCol.toString());
+                }
+            }
+        }
+    }
+
+    tmpRow = currSelectedSquareRow;
+    tmpCol = currSelectedSquareCol;
+    if ((tmpRow + 2) <= MAXROW && (tmpCol + 1) <= MAXCOL) { // 2nd down position
+        if (getSquare(tmpRow + 1, tmpCol).firstChild == null) { // check whether any piece prevent horse from move
+            tmpRow += 2;
+            tmpCol++;
+
+            // check what player occupied destination square
+            let destPlayer = getPlayer(getSquare(tmpRow, tmpCol));
+
+            if (destPlayer == null) { // destination square empty
+                validMoves.push(tmpRow.toString() + tmpCol.toString());
+            }
+            else {
+                if (currPlayer != destPlayer) {
+                    validMoves.push(tmpRow.toString() + tmpCol.toString());
+                }
+            }
+        }
+    }
+    
+    // add valid moves to up of the screen
+    tmpRow = currSelectedSquareRow;
+    tmpCol = currSelectedSquareCol;
+    if ((tmpRow - 2) >= 0 && (tmpCol - 1) >= 0) { // 1st up position
+        if (getSquare(tmpRow - 1, tmpCol).firstChild == null) { // check whether any piece prevent horse from move
+            tmpRow -= 2;
+            tmpCol--;
+
+            // check what player occupied destination square
+            let destPlayer = getPlayer(getSquare(tmpRow, tmpCol));
+
+            if (destPlayer == null) { // destination square empty
+                validMoves.push(tmpRow.toString() + tmpCol.toString());
+            }
+            else {
+                if (currPlayer != destPlayer) {
+                    validMoves.push(tmpRow.toString() + tmpCol.toString());
+                }
+            }
+        }
+    }
+
+    tmpRow = currSelectedSquareRow;
+    tmpCol = currSelectedSquareCol;
+    if ((tmpRow - 2) >= 0 && (tmpCol + 1) <= MAXCOL) { // 2nd up position
+        if (getSquare(tmpRow - 1, tmpCol).firstChild == null) { // check whether any piece prevent horse from move
+            tmpRow -= 2;
+            tmpCol++;
+
+            // check what player occupied destination square
+            let destPlayer = getPlayer(getSquare(tmpRow, tmpCol));
+
+            if (destPlayer == null) { // destination square empty
+                validMoves.push(tmpRow.toString() + tmpCol.toString());
+            }
+            else {
+                if (currPlayer != destPlayer) {
+                    validMoves.push(tmpRow.toString() + tmpCol.toString());
+                }
+            }
+        }
+    }
+
+    // add valid moves to left of the screen
+    tmpRow = currSelectedSquareRow;
+    tmpCol = currSelectedSquareCol;
+    if ((tmpRow - 1) >= 0 && (tmpCol - 2) >= 0) { // 1st left position
+        if (getSquare(tmpRow, tmpCol - 1).firstChild == null) { // check whether any piece prevent horse from move
+            tmpRow--;
+            tmpCol -= 2;
+
+            // check what player occupied destination square
+            let destPlayer = getPlayer(getSquare(tmpRow, tmpCol));
+
+            if (destPlayer == null) { // destination square empty
+                validMoves.push(tmpRow.toString() + tmpCol.toString());
+            }
+            else {
+                if (currPlayer != destPlayer) {
+                    validMoves.push(tmpRow.toString() + tmpCol.toString());
+                }
+            }
+        }
+    }
+
+    tmpRow = currSelectedSquareRow;
+    tmpCol = currSelectedSquareCol;
+    if ((tmpRow + 1) <= MAXROW && (tmpCol - 2) >= 0) { // 2nd left position
+        if (getSquare(tmpRow, tmpCol - 1).firstChild == null) { // check whether any piece prevent horse from move
+            tmpRow++;
+            tmpCol -= 2;
+
+            // check what player occupied destination square
+            let destPlayer = getPlayer(getSquare(tmpRow, tmpCol));
+
+            if (destPlayer == null) { // destination square empty
+                validMoves.push(tmpRow.toString() + tmpCol.toString());
+            }
+            else {
+                if (currPlayer != destPlayer) {
+                    validMoves.push(tmpRow.toString() + tmpCol.toString());
+                }
+            }
+        }
+    }
+
+    // add valid moves to right of the screen
+    tmpRow = currSelectedSquareRow;
+    tmpCol = currSelectedSquareCol;
+    if ((tmpRow - 1) >= 0 && (tmpCol + 2) <= MAXCOL) { // 1st right position
+        if (getSquare(tmpRow, tmpCol + 1).firstChild == null) { // check whether any piece prevent horse from move
+            tmpRow--;
+            tmpCol += 2;
+
+            // check what player occupied destination square
+            let destPlayer = getPlayer(getSquare(tmpRow, tmpCol));
+
+            if (destPlayer == null) { // destination square empty
+                validMoves.push(tmpRow.toString() + tmpCol.toString());
+            }
+            else {
+                if (currPlayer != destPlayer) {
+                    validMoves.push(tmpRow.toString() + tmpCol.toString());
+                }
+            }
+        }
+    }
+
+    tmpRow = currSelectedSquareRow;
+    tmpCol = currSelectedSquareCol;
+    if ((tmpRow + 1) <= MAXROW && (tmpCol + 2) <= MAXCOL) { // 2nd right position
+        if (getSquare(tmpRow, tmpCol + 1).firstChild == null) { // check whether any piece prevent horse from move
+            tmpRow++;
+            tmpCol += 2;
+
+            // check what player occupied destination square
+            let destPlayer = getPlayer(getSquare(tmpRow, tmpCol));
+
+            if (destPlayer == null) { // destination square empty
+                validMoves.push(tmpRow.toString() + tmpCol.toString());
+            }
+            else {
+                if (currPlayer != destPlayer) {
+                    validMoves.push(tmpRow.toString() + tmpCol.toString());
+                }
+            }
         }
     }
 
