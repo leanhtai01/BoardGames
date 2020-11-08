@@ -1014,7 +1014,7 @@ for (let square of squares) {
                 let attackedSquareId = e.target.parentElement.id;
                 let attackedSquare = document.getElementById(attackedSquareId);
 
-                if (attackedSquare != null /*&& validMoves.indexOf(attackedSquare.id) != -1*/) {
+                if (attackedSquare != null && validMoves.indexOf(attackedSquare.id) != -1) {
                     attackedSquare.removeChild(attackedSquare.firstChild);
                     attackedSquare.appendChild(draggedPiece);
                 }
